@@ -97,8 +97,10 @@ if ($proportionate_increase) {
 ob_start();
 ?>
     jQuery(function () {
-    set_submit_spinner_form('<?= $form_id ?>');
+        jQuery('#<?= $class_id ?>_<?=$form_id ?>').appendTo('body');
+        set_submit_spinner_form('<?= $form_id ?>');
     });
+
     /**
     *
     * @param form_id
