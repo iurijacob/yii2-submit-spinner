@@ -25,65 +25,59 @@ if ($proportionate_increase) {
     $section_size   = $ratio * $section_size;
     $section_offset = $ratio * $section_offset;
 }
+
+ob_start();
 ?>
-    <style type="text/css">
+    <?= '#'. $class_id ?>_<?=$form_id ?>
+    {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: <?= $bg_color ?>;
+        opacity: <?= $bg_opacity ?>;
+        z-index: 100000;
+    }
 
-        <?= '#'. $class_id ?>_<?=$form_id ?>
-        {
-            display: none
-        ;
-            position: absolute
-        ;
-            left: 0
-        ;
-            top: 0
-        ;
-            width: 100%
-        ;
-            height: 100%
-        ;
-            background-color:
-        <?= $bg_color ?>
-        ;
-            opacity:
-        <?= $bg_opacity ?>
-        ;
-            z-index: 100000
-        ;
-        }
+    <?= '#'. $class_id ?>_<?=$form_id ?>
+    .spinner {
+        position: absolute;
+        left: 45%;
+        top: 40%;
+        width: <?= $radius ?>px;
+        height: <?= $radius ?>px;
+        background-color: <?= $bg_spinner_color ?>;
+        border-radius: <?= $radius / 2 ?>px;
+        overflow: hidden;
+    }
 
-        <?= '#'. $class_id ?>_<?=$form_id ?>
-        .spinner {
-            position: absolute;
-            left: 45%;
-            top: 40%;
-            width: <?= $radius ?>px;
-            height: <?= $radius ?>px;
-            background-color: <?= $bg_spinner_color ?>;
-            border-radius: <?= $radius / 2 ?>px;
-            overflow: hidden;
-        }
+    <?= '#'. $class_id ?>_<?=$form_id ?>
+    .circle {
+        position: absolute;
+        top: <?= $radius / 2 - $section_size / 2 ?>px;
+        left: <?= $radius / 2 - $section_size / 2  ?>px;
+        width: <?= $section_size ?>px;
+        height: <?= $section_size ?>px;
+        border-radius: <?= $section_size / 2 ?>px;
+        background-color: <?= $section_color ?>;
+    }
 
-        <?= '#'. $class_id ?>_<?=$form_id ?>
-        .circle {
-            position: absolute;
-            top: <?= $radius / 2 - $section_size / 2 ?>px;
-            left: <?= $radius / 2 - $section_size / 2  ?>px;
-            width: <?= $section_size ?>px;
-            height: <?= $section_size ?>px;
-            border-radius: <?= $section_size / 2 ?>px;
-            background-color: <?= $section_color ?>;
-        }
+    <?= '#'. $class_id ?>_<?=$form_id ?>
+    .rotating {
+        -webkit-animation: rotating <?= $spin_speed ?>s linear infinite;
+        -moz-animation: rotating <?= $spin_speed ?>s linear infinite;
+        -ms-animation: rotating <?= $spin_speed ?>s linear infinite;
+        -o-animation: rotating <?= $spin_speed ?>s linear infinite;
+        animation: rotating <?= $spin_speed ?>s linear infinite;
+    }
+<?
+$spinner_css = ob_get_clean();
+$this->registerCss($spinner_css);
 
-        <?= '#'. $class_id ?>_<?=$form_id ?>
-        .rotating {
-            -webkit-animation: rotating <?= $spin_speed ?>s linear infinite;
-            -moz-animation: rotating <?= $spin_speed ?>s linear infinite;
-            -ms-animation: rotating <?= $spin_speed ?>s linear infinite;
-            -o-animation: rotating <?= $spin_speed ?>s linear infinite;
-            animation: rotating <?= $spin_speed ?>s linear infinite;
-        }
-    </style>
+?>
+
     <div id="<?= $class_id ?>_<?=$form_id ?>">
         <div class="spinner rotating">
             <?php for ($i = 0; $i < $sections; $i++) : ?>
