@@ -81,7 +81,7 @@ if ($proportionate_increase) {
         animation: rotating <?= $spin_speed ?>s linear infinite;
     }
 </style>
-<div id="<?= $class_id ?>">
+<div id="<?= $class_id ?>_<?=$form_id ?>">
     <div class="spinner rotating">
         <?php for ($i = 0; $i < $sections; $i++) : ?>
             <div class="circle"
@@ -108,7 +108,7 @@ if ($proportionate_increase) {
             .unbind('submit')
             .submit(
                 function (event) {
-                    show_submit_spinner();
+                    show_submit_spinner('<?=$form_id ?>');
                     jQuery('html').scrollTop(0);
                     jQuery('body').scrollTop(0);
                 });
@@ -122,7 +122,7 @@ if ($proportionate_increase) {
         jQuery(form_id)
             .on('afterValidate', function (event, params) {
                 if (jQuery(form_id).find('.has-error').length == 0) {
-                    show_submit_spinner();
+                    show_submit_spinner('<?=$form_id ?>');
                     jQuery('html').scrollTop(0);
                     jQuery('body').scrollTop(0);
                 }
@@ -130,11 +130,11 @@ if ($proportionate_increase) {
     }
     <?php endif ?>
 
-    function show_submit_spinner() {
-        jQuery('#<?= $class_id ?>').show();
+    function show_submit_spinner(form) {
+        jQuery('#<?= $class_id ?>_<?=$form_id ?>').show();
     }
 
-    function hide_submit_spinner() {
-        jQuery('#<?= $class_id ?>').hide();
+    function hide_submit_spinner(form) {
+        jQuery('#<?= $class_id ?>_<?=$form_id ?>').hide();
     }
 </script>
